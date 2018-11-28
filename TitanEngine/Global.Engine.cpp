@@ -2066,3 +2066,16 @@ HANDLE EngineOpenProcess(DWORD dwDesiredAccess, bool bInheritHandle, DWORD dwPro
     SetLastError(dwLastError);
     return hProcess;
 }
+
+
+HANDLE EngineOpenThread(DWORD dwDesiredAccess, bool bInheritHandle, DWORD dwThreadId)
+{
+    if(engineEnableDebugPrivilege)
+        EngineSetDebugPrivilege(GetCurrentProcess(), true);
+    HANDLE hProcess = OpenThread(dwDesiredAccess, bInheritHandle, dwThreadId);
+    DWORD dwLastError = GetLastError();
+    if(engineEnableDebugPrivilege)
+        EngineSetDebugPrivilege(GetCurrentProcess(), false);
+    SetLastError(dwLastError);
+    return hProcess;
+}
