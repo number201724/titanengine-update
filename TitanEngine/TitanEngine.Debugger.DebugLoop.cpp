@@ -89,7 +89,6 @@ __declspec(dllexport) void TITCALL DebugLoop()
 		}
 		else
 		{
-			Sleep(engineWaitForDebugEventTimeOut);
 			bRet = WaitForDebugEvent(&DBGEvent, 0);
 		}
 
@@ -1178,6 +1177,10 @@ __declspec(dllexport) void TITCALL DebugLoop()
 			}
 			if(!ThreaderGetThreadInfo(0, DBGEvent.dwThreadId)) //switch thread
 				DBGEvent.dwThreadId = dbgProcessInformation.dwThreadId;
+		}
+		else
+		{
+			Sleep(engineWaitForDebugEventTimeOut);
 		}
 
 
